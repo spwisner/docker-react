@@ -1,0 +1,12 @@
+language: generic 
+sudo: required # for superuser permissions
+services: 
+  - docker # docker needs to be preinstalled
+
+# Steps needed before deploying or running tests
+before_install:
+  - docker build -t stephenwisner/docker-react -f Dockerfile.dev . # final dot is for build context; tag to get image b/c otherwise return id of image
+
+script:
+  - docker run -e CI=true stephenwisner/docker-react npm run test
+
