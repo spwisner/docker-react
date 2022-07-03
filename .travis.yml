@@ -10,3 +10,14 @@ before_install:
 script:
   - docker run -e CI=true stephenwisner/docker-react npm run test
 
+deploy:
+  provider: elasticbeanstalk # travis CI comes preconfigured with providers including elasticbeanstalk
+  region: "us-east-1" # depends on where instance created
+  app: "docker" # name of the app given
+  env: "Docker-env"
+  bucket_name: "elasticbeanstalk-us-east-1-393263376523",
+  bucket_path: "docker" # default equal to bucket name
+  on:
+    branch: master # limits deploy to master branch
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: "$AWS_SECRET_KEY"
